@@ -45,12 +45,12 @@ switch ($data->type) {
         try {
             $mail->setFrom('info@site.ru', 'From Name');
             $mail->addAddress('my@mail.ru', 'To Name');
-            $mail->isHTML(true);
+            $mail->isHTML(false);
             $mail->Subject = 'Уведомление из ВКонтакте';
-            $mail->Body = mb_convert_encoding($text_from_message, 'UTF-8');
-//            $mail->Body = mb_convert_encoding($mail->Body, 'UTF-8');
+            $mail->Body = $text_from_message;
             $mail->send();
 
+            //Пишем статус отправки в файл на сервере
             if ($mail->send()) {
                 $file_name_mail_send_log = "from_vk_message_reply_phpmailer_send.log";
                 $f = fopen($file_name_mail_send_log, "a");
@@ -68,7 +68,6 @@ switch ($data->type) {
 
 //Возвращаем "ok" серверу Callback API
         echo('ok');
-
         break;
 }
 ?>
