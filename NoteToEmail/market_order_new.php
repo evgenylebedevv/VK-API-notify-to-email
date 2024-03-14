@@ -157,10 +157,9 @@ switch ($data->type) {
         try {
             $mail->setFrom('info@site.ru', 'From Name');
             $mail->addAddress('my@mail.ru', 'To Name');
-            $mail->isHTML(true);
+            $mail->isHTML(false);
             $mail->Subject = 'Уведомление из ВКонтакте';
-            $mail->Body = mb_convert_encoding($text, 'UTF-8');
-//            $mail->Body = mb_convert_encoding($mail->Body, 'UTF-8');
+            $mail->Body = $text;
             $mail->send();
 
             if ($mail->send()) {
